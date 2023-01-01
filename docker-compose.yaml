@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  bookie:
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bookie
+      MYSQL_USER: bookie
+      MYSQL_PASSWORD: bookie
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+      - bookie
+    ports:
+      - "3308:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    environment:
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_USERNAME: bookie
+      DB_PASSWORD: bookie
+      DB_DATABASE: bookie
+    depends_on:
+      - mysql
+    command: yarn dev
+    ports:
+      - "3000:3000"
+    networks:
+      - bookie
+
+volumes:
+  mysql:
