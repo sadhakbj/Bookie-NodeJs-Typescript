@@ -4,12 +4,14 @@ export class ResponseUtil {
   static sendResponse<T>(
     res: Response,
     data: T,
+    pagiationInfo: any = null,
     statusCode = 200
   ): Response<T> {
     return res.status(statusCode).send({
       success: true,
       message: "Success",
       data,
+      pagiationInfo,
     });
   }
 

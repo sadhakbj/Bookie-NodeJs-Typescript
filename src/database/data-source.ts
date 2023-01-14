@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || "root",
   database: process.env.DB_DATABASE || "bookie",
   migrations: ["src/database/migrations/*.{js,ts}"],
-  logging: process.env.ORM_LOGGING === "true",
+  logging: ["query"],
   entities: [Author, Book],
   synchronize: false,
   subscribers: [],
