@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { DBTable } from "../../constants/DBTable";
 
 export class CreateAuthorsTable1589517774220 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "authors",
+        name: DBTable.AUTHORS,
         columns: [
           {
             name: "id",
@@ -24,6 +25,30 @@ export class CreateAuthorsTable1589517774220 implements MigrationInterface {
             type: "varchar",
             length: "255",
             isNullable: false,
+            isUnique: true,
+          },
+          {
+            name: "bio",
+            type: "text",
+            isNullable: true,
+          },
+          {
+            name: "image",
+            type: "varchar",
+            length: "255",
+            isNullable: true,
+          },
+          {
+            name: "createdAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
+          },
+          {
+            name: "updatedAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
           },
         ],
       }),
@@ -32,6 +57,6 @@ export class CreateAuthorsTable1589517774220 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("authors");
+    await queryRunner.dropTable(DBTable.AUTHORS);
   }
 }

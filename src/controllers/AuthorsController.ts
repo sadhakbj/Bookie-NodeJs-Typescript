@@ -18,8 +18,7 @@ export class AuthorsController {
   }
 
   async getAuthor(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-    const author = await AppDataSource.getRepository(Author).findOneBy({
+    const author = await AppDataSource.getRepository(Author).findOneByOrFail({
       id: parseInt(req.params.id),
     });
     if (!author) {
@@ -28,8 +27,10 @@ export class AuthorsController {
     return ResponseUtil.sendResponse(res, author, 200);
   }
 
-  async createAuthor(req: Request, res: Response, next): Promise<Response> {
+  async createAuthor(req: Request, res: Response) {
     const authorData = req.body;
+
+    authorData.image = req.file?.path;
     const repo = AppDataSource.getRepository(Author);
     const author = repo.create(authorData);
     await repo.save(author);
