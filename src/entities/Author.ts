@@ -1,41 +1,34 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
-import { Book } from "./Book";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Book } from "./Book"
 
 @Entity("authors")
 export class Author {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ nullable: false })
-  name: string;
+  name: string
 
   @Column({ nullable: false })
-  email: string;
+  email: string
 
   @OneToMany((type) => Book, (book) => book.author)
-  books: Book[];
+  books: Book[]
 
   @Column({ nullable: true })
-  bio: string;
+  bio: string
 
   @Column({ nullable: true })
-  image: string;
+  image: string
 
   @CreateDateColumn({
     type: "timestamp",
   })
-  public createdAt: Date;
+  public createdAt: Date
 
   @UpdateDateColumn({
     type: "timestamp",
     onUpdate: "CURRENT_TIMESTAMP(6)",
   })
-  public updatedAt: Date;
+  public updatedAt: Date
 }

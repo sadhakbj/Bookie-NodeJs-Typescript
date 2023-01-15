@@ -1,9 +1,9 @@
-import * as dotenv from "dotenv";
-import { DataSource } from "typeorm";
-import { Author } from "./../entities/Author";
-import { Book } from "./../entities/Book";
+import * as dotenv from "dotenv"
+import { DataSource } from "typeorm"
+import { Author } from "./../entities/Author"
+import { Book } from "./../entities/Book"
 
-dotenv.config();
+dotenv.config()
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -17,4 +17,4 @@ export const AppDataSource = new DataSource({
   entities: [Author, Book],
   synchronize: false,
   subscribers: [],
-});
+})

@@ -1,5 +1,5 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
-import { DBTable } from "../../constants/DBTable";
+import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { DBTable } from "../../constants/DBTable"
 
 export class CreateAuthorsTable1589517774220 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -53,10 +53,10 @@ export class CreateAuthorsTable1589517774220 implements MigrationInterface {
         ],
       }),
       true
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(DBTable.AUTHORS);
+    await queryRunner.dropTable(DBTable.AUTHORS)
   }
 }

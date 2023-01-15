@@ -1,18 +1,18 @@
-import { IsInt, IsNotEmpty } from "class-validator";
+import { IsInt, IsNotEmpty } from "class-validator"
 
 export class CreateBookDTO {
   @IsNotEmpty()
-  title: string;
+  title: string
 
   @IsNotEmpty()
-  description: string;
+  description: string
 
   @IsInt()
-  authorId: number;
+  authorId: number
 
   @IsInt()
-  price: number;
+  price: number
 
   @IsNotEmpty()
-  category: string;
+  category: string
 }

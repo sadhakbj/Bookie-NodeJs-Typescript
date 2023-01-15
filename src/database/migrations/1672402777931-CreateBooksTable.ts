@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm"
 
 export class CreateBooksTable1589517907287 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -48,7 +43,7 @@ export class CreateBooksTable1589517907287 implements MigrationInterface {
         ],
       }),
       true
-    );
+    )
 
     await queryRunner.createForeignKey(
       "books",
@@ -58,10 +53,10 @@ export class CreateBooksTable1589517907287 implements MigrationInterface {
         referencedTableName: "authors",
         onDelete: "CASCADE",
       })
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("books");
+    await queryRunner.dropTable("books")
   }
 }
