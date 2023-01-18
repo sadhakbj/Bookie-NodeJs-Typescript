@@ -1,4 +1,4 @@
-import { validate } from "class-validator"
+import { validateOrReject } from "class-validator"
 import { Request, Response } from "express"
 import { CreateBookDTO } from "../dtos/CreateBookDTO"
 import { AppDataSource } from "./../database/data-source"
@@ -26,10 +26,8 @@ export class BooksController {
     const bookData = req.body
     const dto = new CreateBookDTO()
     Object.assign(dto, bookData)
-    const errors = await validate(dto)
-    if (errors.length > 0) {
-      return ResponseUtil.sendError(res, "Invalid data", 400, errors)
-    }
+    const errors = await validateOrReject(dto)
+
     const repo = AppDataSource.getRepository(Book)
     const book = repo.create(bookData)
     await repo.save(book)
@@ -39,6 +37,12 @@ export class BooksController {
   async updateBook(req: Request, res: Response): Promise<Response> {
     const { id } = req.params
     const bookData = req.body
+    const dto = new CreateBookDTO()
+    Object.assign(dto, bookData)
+    dto.id = parseInt(id)
+
+    const errors = await validateOrReject(dto)
+    delete dto.id
     const repo = AppDataSource.getRepository(Book)
     const book = await repo.findOneBy({
       id: parseInt(req.params.id),

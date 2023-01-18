@@ -1,7 +1,13 @@
-import { IsInt, IsNotEmpty } from "class-validator"
+import { IsInt, IsNotEmpty, MinLength } from "class-validator"
+import { Book } from "../entities/Book"
+import { IsUnique } from "../validators/IsUnique"
 
 export class CreateBookDTO {
+  id?: number
+
+  @IsUnique(Book, "title")
   @IsNotEmpty()
+  @MinLength(3)
   title: string
 
   @IsNotEmpty()
