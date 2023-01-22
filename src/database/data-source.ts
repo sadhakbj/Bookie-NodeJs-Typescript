@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv"
 import { DataSource } from "typeorm"
+import { User } from "../entities/User"
 import { Author } from "./../entities/Author"
 import { Book } from "./../entities/Book"
 
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || "bookie",
   migrations: ["src/database/migrations/*.{js,ts}"],
   logging: ["query"],
-  entities: [Author, Book],
+  entities: [Author, Book, User],
   synchronize: false,
   subscribers: [],
 })
