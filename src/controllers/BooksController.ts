@@ -24,6 +24,8 @@ export class BooksController {
 
   async createBook(req: Request, res: Response): Promise<Response> {
     const bookData = req.body
+    console.log(bookData)
+
     const dto = new CreateBookDTO()
     Object.assign(dto, bookData)
     const errors = await validateOrReject(dto)

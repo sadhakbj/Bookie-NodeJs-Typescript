@@ -1,6 +1,8 @@
 import bodyParser from "body-parser"
 import cors from "cors"
 import express, { Express, NextFunction, Request, Response } from "express"
+import fs from "fs"
+import path from "path"
 import "reflect-metadata"
 import { EntityNotFoundError } from "typeorm"
 import { ResponseUtil } from "./utils/Response"
@@ -8,7 +10,6 @@ import { ResponseUtil } from "./utils/Response"
 import { ValidationError } from "class-validator"
 import authorsRoutes from "./routes/author"
 import booksRoutes from "./routes/book"
-import { ErrorHandler } from "./utils/Errorhandler"
 
 const app: Express = express()
 
@@ -18,7 +19,32 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 app.use("/authors", authorsRoutes)
-app.use("/books", ErrorHandler.handleErrors(booksRoutes))
+app.use("/books", booksRoutes)
+
+app.get("/images/:type/:id", (req: Request, res: Response) => {
+  const { type, id } = req.params
+  const imageTypes = ["authors", "books"]
+  if (!imageTypes.includes(type)) {
+    return res.status(400).json({ success: false, message: "Invalid image type" })
+  }
+
+  // Set the file path based on the type
+  let filePath = path.join(__dirname, "..", "uploads", type, id)
+
+  // Check if the file exists
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ success: false, message: "Image not found" })
+  }
+
+  // Read the file and send it as a response
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: "Error while reading image" })
+    }
+    res.set("Content-Type", "image/jpeg")
+    res.send(data)
+  })
+})
 
 app.all("*", (req: Request, res: Response) => {
   return res.status(404).send({

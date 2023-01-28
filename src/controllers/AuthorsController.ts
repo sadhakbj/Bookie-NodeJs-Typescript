@@ -18,13 +18,14 @@ export class AuthorsController {
     if (!author) {
       return ResponseUtil.sendError(res, "Author not found", 404)
     }
+    author.image = `http://localhost:3000/images/authors/${author.image}`
     return ResponseUtil.sendResponse(res, author, 200)
   }
 
   async createAuthor(req: Request, res: Response) {
     const authorData = req.body
 
-    authorData.image = req.file?.path
+    authorData.image = req.file?.filename
     const repo = AppDataSource.getRepository(Author)
     const author = repo.create(authorData)
     await repo.save(author)
