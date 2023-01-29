@@ -1,6 +1,6 @@
+import { DBTable } from "@/constants/DBTable"
 import { hash } from "bcryptjs"
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import { DBTable } from "../constants/DBTable"
 
 @Entity(DBTable.USERS)
 export class User {

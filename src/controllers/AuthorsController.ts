@@ -1,8 +1,8 @@
+import { AppDataSource } from "@/database/data-source"
+import { PageUtil } from "@/database/Paginator"
+import { Author } from "@/entities/Author"
+import { ResponseUtil } from "@/utils/Response"
 import { Request, Response } from "express"
-import { PageUtil } from "../database/Paginator"
-import { AppDataSource } from "./../database/data-source"
-import { Author } from "./../entities/Author"
-import { ResponseUtil } from "./../utils/Response"
 
 export class AuthorsController {
   async getAuthors(req, res) {

@@ -1,9 +1,9 @@
+import { AppDataSource } from "@/database/data-source"
+import { CreateBookDTO } from "@/dtos/CreateBookDTO"
+import { Book } from "@/entities/Book"
+import { ResponseUtil } from "@/utils/Response"
 import { validateOrReject } from "class-validator"
 import { Request, Response } from "express"
-import { CreateBookDTO } from "../dtos/CreateBookDTO"
-import { AppDataSource } from "./../database/data-source"
-import { Book } from "./../entities/Book"
-import { ResponseUtil } from "./../utils/Response"
 
 export class BooksController {
   async getBooks(req: Request, res: Response): Promise<Response> {

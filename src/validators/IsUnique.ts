@@ -1,3 +1,4 @@
+import { AppDataSource } from "@/database/data-source"
 import {
   registerDecorator,
   ValidationArguments,
@@ -6,7 +7,6 @@ import {
   ValidatorConstraintInterface,
 } from "class-validator"
 import { Not } from "typeorm"
-import { AppDataSource } from "../database/data-source"
 
 @ValidatorConstraint({ async: true })
 export class IsUniqueConstraint implements ValidatorConstraintInterface {
