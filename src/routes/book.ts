@@ -1,7 +1,7 @@
+import { BooksController } from "@/controllers/BooksController"
+import { AuthMiddleware } from "@/middlewares/AuthMiddleware"
+import { ErrorHandler } from "@/utils/Errorhandler"
 import express from "express"
-import { BooksController } from "../controllers/BooksController"
-import { AuthMiddleware } from "../middlewares/AuthMiddleware"
-import { ErrorHandler } from "./../utils/Errorhandler"
 
 const booksController = new BooksController()
 const router = express.Router()

@@ -1,5 +1,5 @@
+import { Book } from "@/entities/Book"
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
-import { Book } from "./Book"
 
 @Entity("authors")
 export class Author {

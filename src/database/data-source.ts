@@ -1,8 +1,8 @@
+import { Author } from "@/entities/Author"
+import { Book } from "@/entities/Book"
+import { User } from "@/entities/User"
 import * as dotenv from "dotenv"
 import { DataSource } from "typeorm"
-import { User } from "../entities/User"
-import { Author } from "./../entities/Author"
-import { Book } from "./../entities/Book"
 
 dotenv.config()
 

@@ -1,3 +1,4 @@
+import { ResponseUtil } from "@/utils/Response"
 import bodyParser from "body-parser"
 import cors from "cors"
 import express, { Express, NextFunction, Request, Response } from "express"
@@ -5,11 +6,10 @@ import fs from "fs"
 import path from "path"
 import "reflect-metadata"
 import { EntityNotFoundError } from "typeorm"
-import { ResponseUtil } from "./utils/Response"
 
+import authorsRoutes from "@/routes/author"
+import booksRoutes from "@/routes/book"
 import { ValidationError } from "class-validator"
-import authorsRoutes from "./routes/author"
-import booksRoutes from "./routes/book"
 
 const app: Express = express()
 

@@ -1,9 +1,10 @@
+import app from "@/config/app"
+import { AppDataSource } from "@/database/data-source"
+import { User } from "@/entities/User"
+import { ResponseUtil } from "@/utils/Response"
 import { compare } from "bcryptjs"
 import { NextFunction, Request, Response } from "express"
 import { sign, verify } from "jsonwebtoken"
-import { User } from "../entities/User"
-import { ResponseUtil } from "../utils/Response"
-import { AppDataSource } from "./../database/data-source"
 
 export class AuthController {
   async login(request: Request, response: Response, next: NextFunction) {
@@ -26,7 +27,7 @@ export class AuthController {
       {
         userId: user.id,
       },
-      "secret123",
+      app.secret,
       {
         expiresIn: "15m",
       }
@@ -60,7 +61,7 @@ export class AuthController {
     const token = tokenHeader.split(" ")[1]
 
     try {
-      const payload = verify(token, "secret123")
+      const payload = verify(token, app.secret)
       const user = payload as any
 
       const { email, userId } = user
