@@ -1,10 +1,11 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm"
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import { DBTable } from "../../constants/DBTable";
 
-export class CreateBooksTable1589517907287 implements MigrationInterface {
+export class CreateBooksTable1674172404705 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "books",
+        name: DBTable.BOOKS,
         columns: [
           {
             name: "id",
@@ -40,23 +41,40 @@ export class CreateBooksTable1589517907287 implements MigrationInterface {
             length: "255",
             isNullable: false,
           },
+          {
+            name: "image",
+            type: "varchar",
+            length: "255",
+            isNullable: true,
+          },
+          {
+            name: "createdAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
+          },
+          {
+            name: "updatedAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
+          },
         ],
       }),
       true
-    )
+    );
 
-    await queryRunner.createForeignKey(
-      "books",
-      new TableForeignKey({
-        columnNames: ["authorId"],
-        referencedColumnNames: ["id"],
-        referencedTableName: "authors",
-        onDelete: "CASCADE",
-      })
-    )
+    const foreignKey = new TableForeignKey({
+      columnNames: ["authorId"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "authors",
+      onDelete: "CASCADE",
+    });
+
+    await queryRunner.createForeignKey(DBTable.BOOKS, foreignKey);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("books")
+    await queryRunner.dropTable(DBTable.BOOKS);
   }
 }

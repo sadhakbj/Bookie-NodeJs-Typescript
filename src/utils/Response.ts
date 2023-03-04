@@ -1,20 +1,26 @@
 import { Response } from "express"
 
 export class ResponseUtil {
-  static sendResponse<T>(res: Response, data: T, pagiationInfo: any = null, statusCode = 200): Response<T> {
-    return res.status(statusCode).send({
+  static sendResponse<T>(
+    res: Response,
+    message: string,
+    data: T,
+    paginationInfo: any = null,
+    statusCode = 200
+  ): Response<T> {
+    return res.status(statusCode).json({
       success: true,
-      message: "Success",
+      message,
       data,
-      pagiationInfo,
+      paginationInfo,
     })
   }
 
-  static sendError(res: Response, message: string, statusCode = 500, errors: any = null): Response {
-    return res.status(statusCode).send({
+  static sendErrror<T>(res: Response, message: string, statusCode = 500, error: T): Response<T> {
+    return res.status(statusCode).json({
       success: false,
       message,
-      errors,
+      error,
     })
   }
 }

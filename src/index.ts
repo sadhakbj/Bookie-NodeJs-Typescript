@@ -1,19 +1,19 @@
-import app from "@/app"
-import appConfig from "@/config/app"
-import { AppDataSource } from "@/database/data-source"
-import * as dotenv from "dotenv"
-import "reflect-metadata"
+import { AppDataSource } from "@/database/data-source";
+import * as dotenv from "dotenv";
+import "reflect-metadata";
 
-dotenv.config()
+import app from "@/app";
 
-const PORT = process.env.APP_PORT || 3000
+dotenv.config();
+
+const PORT = process.env.APP_PORT || 3000;
 
 AppDataSource.initialize()
   .then(async () => {
-    console.log("Database connection success")
+    console.log("Database connection success");
   })
-  .catch((err) => console.log(err))
+  .catch((err) => console.error(err));
 
-app.listen(appConfig.port, () => {
-  console.log(`Server is running on port ${appConfig.port}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

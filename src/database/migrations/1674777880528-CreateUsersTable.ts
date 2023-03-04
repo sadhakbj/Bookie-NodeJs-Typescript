@@ -1,8 +1,8 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
-import { Roles } from "../../constants/Roles"
-import { DBTable } from "./../../constants/DBTable"
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { DBTable } from "../../constants/DBTable";
+import { Roles } from "../../constants/Role";
 
-export class CreateUsersTable1674355427226 implements MigrationInterface {
+export class CreateUsersTable1674777880528 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -33,13 +33,25 @@ export class CreateUsersTable1674355427226 implements MigrationInterface {
             type: "int",
             default: Roles.USER,
           },
+          {
+            name: "createdAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
+          },
+          {
+            name: "updatedAt",
+            type: "datetime",
+            default: "now()",
+            isNullable: true,
+          },
         ],
       }),
       true
-    )
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(DBTable.USERS, true)
+    await queryRunner.dropTable(DBTable.USERS);
   }
 }
