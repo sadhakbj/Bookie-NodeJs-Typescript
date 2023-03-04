@@ -1,10 +1,10 @@
-import { Author } from "@/entities/Author"
-import { Book } from "@/entities/Book"
-import { User } from "@/entities/User"
-import * as dotenv from "dotenv"
-import { DataSource } from "typeorm"
+import * as dotenv from "dotenv";
+import { DataSource } from "typeorm";
+import { Author } from "./entities/Author";
+import { Book } from "./entities/Book";
+import { User } from "./entities/User";
 
-dotenv.config()
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -13,9 +13,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || "user",
   password: process.env.DB_PASSWORD || "root",
   database: process.env.DB_DATABASE || "bookie",
-  migrations: ["src/database/migrations/*.{js,ts}"],
   logging: ["query"],
-  entities: [Author, Book, User],
   synchronize: false,
+  entities: [Author, Book, User],
   subscribers: [],
-})
+  migrations: ["src/database/migrations/*.ts"],
+});
