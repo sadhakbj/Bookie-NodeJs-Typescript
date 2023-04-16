@@ -16,7 +16,7 @@ export class ResponseUtil {
     })
   }
 
-  static sendErrror<T>(res: Response, message: string, statusCode = 500, error: T): Response<T> {
+  static sendError<T>(res: Response, message: string, statusCode = 500, error: T): Response<T> {
     return res.status(statusCode).json({
       success: false,
       message,

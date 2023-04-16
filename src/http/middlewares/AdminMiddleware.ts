@@ -8,7 +8,7 @@ export class AdminMiddleware {
     // @ts-ignore
     const user = req.user as User;
     if (user.role != Roles.ADMIN) {
-      return ResponseUtil.sendErrror(res, "Unauthorized", 403, null);
+      return ResponseUtil.sendError(res, "Unauthorized", 403, null);
     }
     next();
   }

@@ -8,7 +8,7 @@ export class AuthMiddleware {
   static async authenticate(req: Request, res: Response, next: NextFunction) {
     const { authorization: tokenHeader } = req.headers;
     if (!tokenHeader) {
-      return ResponseUtil.sendErrror(res, "Token not provided", 401, null);
+      return ResponseUtil.sendError(res, "Token not provided", 401, null);
     }
 
     const token = tokenHeader.split(" ")[1];
@@ -24,7 +24,7 @@ export class AuthMiddleware {
       req.user = user;
     } catch (error) {
       console.error(error);
-      return ResponseUtil.sendErrror(res, "Invalid token", 401, null);
+      return ResponseUtil.sendError(res, "Invalid token", 401, null);
     }
     next();
   }
