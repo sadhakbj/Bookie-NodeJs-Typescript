@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch src --exec 'ts-node' -r tsconfig-paths/register src/index.ts",
+    "prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register build/index.js",
     "typeorm": "typeorm-ts-node-commonjs -d src/database/data-source.ts",
     "migration:show": "yarn typeorm migration:show",
     "migration:create": "node scripts/migration-create.js",
