@@ -36,11 +36,11 @@ export class AuthController {
     const repo = AppDataSource.getRepository(User);
     const user = await repo.findOneBy({ email });
     if (!user) {
-      return ResponseUtil.sendErrror(res, "Invalid credentials", 401, null);
+      return ResponseUtil.sendError(res, "Invalid credentials", 401, null);
     }
     let passwordMatches = await compare(password, user.password);
     if (!passwordMatches) {
-      return ResponseUtil.sendErrror(res, "Invalid credentials", 401, null);
+      return ResponseUtil.sendError(res, "Invalid credentials", 401, null);
     }
     let accessToken = sign({ userId: user.id }, process.env.ACCESS_KEY_SECRET || "secret123", {
       expiresIn: "30m",
